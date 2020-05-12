@@ -150,6 +150,25 @@ html {
   background-color: #111111;
   color: #fff;
   padding: 0 4rem; }
+  #movies-container-1,
+  #movies-container-2,
+  #movies-container-3,
+  #movies-container-4,
+  #movies-container-5,
+  #movies-container-6{
+    display: flex;
+    padding: 0 2rem;
+    flex-direction: row;
+    overflow-x: scroll;
+    background: black;
+    border-radius: 10px;
+    border: 1px solid white;
+    transform: scale(0.9);
+  }
+
+  h1{
+    margin: 1% 5%;
+  }
   .movies__heading {
     padding-top: 2rem; }
   .movies__container::-webkit-scrollbar {

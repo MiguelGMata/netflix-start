@@ -1,3 +1,5 @@
+//import {fetchMovie} from "../apiService.js";
+//console.log(fetchMovie)
 export default function Header(props) {
   return `
           <div class="header__container">
@@ -12,5 +14,7 @@ export default function Header(props) {
             <p class="header__container-overview">${props.overview}</p>
           </div>
         `;
+
+
 }
 
