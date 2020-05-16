@@ -1,73 +1,151 @@
+import fetchMovie from "./apiService.js";
 import Header from "./components/Header.mjs";
-import Modale from "./components/Modale.mjs";
-console.log(Modale)
-import Movie from "./components/Movie.mjs";
-//console.log(Movie)
-import {fetchMovie} from "./apiService.js";
-//console.log(fetchMovie)
-import {fetchTrending} from "./apiService.js";
-import {fetchTopRated} from "./apiService.js";
-import {fetchByGenreMovies} from "./apiService.js";
-import {fetchByGenre} from "./apiService.js";
+import { ModaleSeries, ModaleMovies } from "./components/Modales.mjs";
+import { fetchNetflixOriginals, fetchTrending, fetchTopRated, fetchByGenreMovies, fetchNetflixDescription  } from "./apiService.js";
+import { displayRechercheMovie } from "./input.js";
 
 
-  
-(() => {
-  //Callback
-  const getResponse = (data) => {
-    return data;
-  };
-  try {
-    let movie = fetchMovie(157336, getResponse);
-    //console.log(movie);
+(async () => {
+    let movie = await fetchMovie(181812); //157336
     document.getElementById("header").innerHTML = Header(movie);
     document.getElementById("header").style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
-   
-  }
-  catch(e){
-    //console.log(e)
-  }
 })();
 
-  (async() => {
-    let netflixTrending = await fetchTrending();
-    let container = document.getElementById("movies-container-2");
-    let movies = netflixTrending.results;
-  
-    for(let i = 0 ; i < movies.length ; i++){
+
+
+(async() => {
+  let netflixOriginals = await fetchNetflixOriginals();
+  let container = document.getElementById("movies-container-1");
+  let movies = netflixOriginals.results;
+
+  for(let i = 0 ; i < movies.length ; i++){
+    let movie = document.createElement('div');
+    movie.className = "movies__container--movie__netflix";
+    image.className = "movies__container--movie-image";
+    image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
+    let id = movies[i].id;
+    container.appendChild(movie);
+    movie.appendChild(image);
+    if(movies[i].poster_path === null){
+      image.style.display = 'none';
+    }
+
+    let movieName = await fetchNetflixDescription(id);
+    
+    image.addEventListener('click', (event) => {
+      event.preventDefault();
+      let modaleNetflixOriginals = document.createElement('div');
+      modaleNetflixOriginals.id = 'modaleNetflixOriginals';
+      document.body.appendChild(modaleNetflixOriginals);
+
+      modaleNetflixOriginals.innerHTML = ModaleSeries(movieName);      
+      modaleNetflixOriginals.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+      modaleNetflixOriginals.style.backgroundSize = 'cover';
+      let button = modaleNetflixOriginals.querySelector('.modaleButton');
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modale = modaleNetflixOriginals.querySelector('#modale');
+        modaleNetflixOriginals.removeChild(modale)
+        modaleNetflixOriginals.remove('backgroundImage');
+      });
+    });
+  }    
+})();
+
+
+// FILMS TENDANCE
+(async() => {
+  let netflixTrending = await fetchTrending();
+  let container = document.getElementById("movies-container-2");
+  let movies = netflixTrending.results;
+
+  for(let i = 0 ; i < movies.length ; i++){
+    let movie = document.createElement('div');
+    movie.className = "movies__container--movie";
+    let image = document.createElement('img');
+    image.className = "movies__container--movie-image";
+    image.src = `https://image.tmdb.org/t/p/original/${movies[i].backdrop_path}`;
+    let id = movies[i].id;
+    container.appendChild(movie);
+    movie.appendChild(image);
+    if(movies[i].backdrop_path === null){
+      image.style.display = 'none';
+    }
+    
+    let movieName = await fetchMovie(id);
+    
+    image.addEventListener('click', (event) => {
+      event.preventDefault();
+      let modaleTrendingNow = document.createElement('div');
+      modaleTrendingNow.id = 'modaleTrendingNow';
+      document.body.appendChild(modaleTrendingNow);
+
+      modaleTrendingNow.innerHTML = ModaleMovies(movieName);      
+      modaleTrendingNow.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+      modaleTrendingNow.style.backgroundSize = 'cover';
+      let button = modaleTrendingNow.querySelector('.modaleButton');
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modale = modaleTrendingNow.querySelector('#modale');
+        modaleTrendingNow.removeChild(modale)
+        modaleTrendingNow.remove('backgroundImage');
+      });
+    });
+  }    
+})();
+
+
+// FILMS LES MIEUX NOTES
+(async() => {
+  let netflixTopRated = await fetchTopRated();
+  let container = document.getElementById("movies-container-3");
+  let movies = netflixTopRated.results;
+
+  for (let i = 0; i < movies.length; i++) {
       let movie = document.createElement('div');
       movie.className = "movies__container--movie";
       let image = document.createElement('img');
       image.className = "movies__container--movie-image";
-      image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
+      image.src = `https://image.tmdb.org/t/p/original/${movies[i].backdrop_path}`;
+      let id = movies[i].id;
       container.appendChild(movie);
       movie.appendChild(image);
-      if(movies[i].poster_path === null){
+      if(movies[i].backdrop_path === null){
         image.style.display = 'none';
-      }
-    }    
-  })();
+      }  
+      
+      let movieName = await fetchMovie(id);
+      
+      image.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modaleTopRated = document.createElement('div');
+        modaleTopRated.id = 'modaleTopRated';
+        document.body.appendChild(modaleTopRated);
 
-
-  (async() => {
-    let netflixTopRated = await fetchTopRated();
-    let container = document.getElementById("movies-container-3");
-    let movies = netflixTopRated.results;
-//
-    for (let i = 0; i < movies.length; i++) {
-        let movie = document.createElement('div');
-        movie.className = "movies__container--movie";
-        let image = document.createElement('img');
-        image.className = "movies__container--movie-image";
-        image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
-        container.appendChild(movie);
-        movie.appendChild(image);
-        if(movies[i].poster_path === null){
-          image.style.display = 'none';
-        }
-    }
+        modaleTopRated.innerHTML = ModaleMovies(movieName);      
+        modaleTopRated.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+        modaleTopRated.style.backgroundSize = 'cover';
+        let button = modaleTopRated.querySelector('.modaleButton');
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          let modale = modaleTopRated.querySelector('#modale');
+          modaleTopRated.removeChild(modale)
+          modaleTopRated.remove('backgroundImage');
+        });
+      });
+  }
 })();
 
+
+// FILMS PAR GENRE
+
+// Code pour obtenir la liste des genres
+// (async() => {
+//   let movie = await fetchByGenre();
+//   console.log(movie)
+// })();
+
+// Films par genre : ACTION
 (async() => {
   let netflixByGenreAction = await fetchByGenreMovies(28);
   let container = document.getElementById("movies-container-4");
@@ -78,57 +156,137 @@ import {fetchByGenre} from "./apiService.js";
       movie.className = "movies__container--movie";
       let image = document.createElement('img');
       image.className = "movies__container--movie-image";
-      image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
+      image.src = `https://image.tmdb.org/t/p/original/${movies[i].backdrop_path}`;
+      let id = movies[i].id;
       container.appendChild(movie);
       movie.appendChild(image);
-      if(movies[i].poster_path === null){
+      if(movies[i].backdrop_path === null){
         image.style.display = 'none';
       }
+
+      let movieName = await fetchMovie(id);
+      
+      image.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modaleActionMovies = document.createElement('div');
+        modaleActionMovies.id = 'modaleActionMovies';
+        document.body.appendChild(modaleActionMovies);
+
+        modaleActionMovies.innerHTML = ModaleMovies(movieName);      
+        modaleActionMovies.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+        modaleActionMovies.style.backgroundSize = 'cover';
+        let button = modaleActionMovies.querySelector('.modaleButton');
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          let modale = modaleActionMovies.querySelector('#modale');
+          modaleActionMovies.removeChild(modale)
+          modaleActionMovies.remove('backgroundImage');
+        });
+      });
   }
 })();
 
+// Films par genre : COMEDY
 (async() => {
-  let netflixByGenreAction = await fetchByGenreMovies(35);
+  let netflixByGenreComedy = await fetchByGenreMovies(35);
   let container = document.getElementById("movies-container-5");
-  let movies = netflixByGenreAction.results;
+  let movies = netflixByGenreComedy.results;
 
   for (let i = 0; i < movies.length; i++) {
       let movie = document.createElement('div');
       movie.className = "movies__container--movie";
       let image = document.createElement('img');
       image.className = "movies__container--movie-image";
-      image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
+      image.src = `https://image.tmdb.org/t/p/original/${movies[i].backdrop_path}`;
+      let id = movies[i].id;
       container.appendChild(movie);
       movie.appendChild(image);
-      if(movies[i].poster_path === null){
+      if(movies[i].backdrop_path === null){
         image.style.display = 'none';
       }
+
+      let movieName = await fetchMovie(id);
+      
+      image.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modaleComedies = document.createElement('div');
+        modaleComedies.id = 'modaleComedies';
+        document.body.appendChild(modaleComedies);
+
+        modaleComedies.innerHTML = ModaleMovies(movieName);      
+        modaleComedies.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+        modaleComedies.style.backgroundSize = 'cover';
+        let button = modaleComedies.querySelector('.modaleButton');
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          let modale = modaleComedies.querySelector('#modale');
+          modaleComedies.removeChild(modale)
+          modaleComedies.remove('backgroundImage');
+        });
+      });
   }
 })();
 
+// Films par genre : DOCUMENTARY
 (async() => {
-  let netflixByGenreAction = await fetchByGenreMovies(99);
+  let netflixByGenreDocumentary = await fetchByGenreMovies(99);
   let container = document.getElementById("movies-container-6");
-  let movies = netflixByGenreAction.results;
+  let movies = netflixByGenreDocumentary.results;
 
   for (let i = 0; i < movies.length; i++) {
       let movie = document.createElement('div');
       movie.className = "movies__container--movie";
       let image = document.createElement('img');
       image.className = "movies__container--movie-image";
-      image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
+      image.src = `https://image.tmdb.org/t/p/original/${movies[i].backdrop_path}`;
+      let id = movies[i].id;
       container.appendChild(movie);
       movie.appendChild(image);
-      if(movies[i].poster_path === null){
+      if(movies[i].backdrop_path === null){
         image.style.display = 'none';
       }
+
+      let movieName = await fetchMovie(id);
+      
+      image.addEventListener('click', (event) => {
+        event.preventDefault();
+        let modaleDocumentaries = document.createElement('div');
+        modaleDocumentaries.id = 'modaleDocumentaries';
+        document.body.appendChild(modaleDocumentaries);
+
+        modaleDocumentaries.innerHTML = ModaleMovies(movieName);      
+        modaleDocumentaries.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movieName.backdrop_path})`;
+        modaleDocumentaries.style.backgroundSize = 'cover';
+        let button = modaleDocumentaries.querySelector('.modaleButton');
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          let modale = modaleDocumentaries.querySelector('#modale');
+          modaleDocumentaries.removeChild(modale)
+          modaleDocumentaries.remove('backgroundImage');
+        });
+      });
   }
 })();
 
-(async() => {  //para verificar les codigo
-let movie = await fetchByGenre();
-//console.log(movie)
-})();
+displayRechercheMovie();
+
+// (() => {
+  //Callback
+//   const getResponse = (data) => {
+//     return data;
+//   };
+//   try {
+//     let movie = fetchMovie(157336, getResponse);
+//     console.log(movie);
+//     document.getElementById("header").innerHTML = Header(movie);
+//     document.getElementById("header").style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
+//   }
+//   catch(e){
+//     console.log(e)
+//   }
+
+// })();
+
 //2
 // (() => {
 //     let movie = fetchMovie(157336).then(movie => {
@@ -140,30 +298,3 @@ let movie = await fetchByGenre();
 // })();
 
 //3
-// (async () => {
-//     let movie = await fetchMovie(616);
-//     console.log(movie)
-//     document.getElementById("header").innerHTML = Header(movie);
-//     document.getElementById("header").style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
-// })();
-/*
-(async() => {
-  let netflixOriginals = await fetchNetflixOriginals()
-  console.log(netflixOriginals)       
-})();
-
-(async() => {
-  let netflixOriginals = await fetchNetflixOriginals();
-  let container = document.getElementById("netflix");
-  let movies = netflixOriginals.results;
-
-  for(let i = 1 ; i < movies.length ; i++){
-    let image = document.createElement('img');
-    image.className = "movies__container--movie-image";
-    image.src = `https://image.tmdb.org/t/p/original/${movies[i].poster_path}`;
-    container.appendChild(image);
-  }    
-})();
-*/
-//document.body.onload = fetchNetflixOriginals;    
-//console.log(fetchNetflixOriginals)

@@ -144,31 +144,68 @@ html {
   background-color: #111111;
   min-height: 100%;
   padding-bottom: 4rem;
-  padding-left: 4rem; }
+  padding-left: 4rem; 
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 7rem;
+}
 
 .movies {
   background-color: #111111;
   color: #fff;
   padding: 0 4rem; }
-  #movies-container-1,
-  #movies-container-2,
-  #movies-container-3,
-  #movies-container-4,
-  #movies-container-5,
-  #movies-container-6{
+  #movies-container-1{
     display: flex;
-    padding: 0 2rem;
-    flex-direction: row;
     overflow-x: scroll;
-    background: black;
-    border-radius: 10px;
-    border: 1px solid white;
-    transform: scale(0.9);
   }
 
-  h1{
-    margin: 1% 5%;
+  #movies-container-2,
+  #movies-container-3, 
+  #movies-container-4,
+  #movies-container-5, 
+  #movies-container-6{ 
+    overflow-x: scroll;
+    display: flex;
+    background-size:40%;
+    width: 100%;
+    height: 100%;
+    animation: dropFlowP 10s linear infinite;
+    background-image: url("/img/camera.png");
   }
+  @keyframes dropFlowP {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 800px 0;
+    }
+  }
+
+  #movies-container-3{
+    animation: container3 20s linear infinite;
+  }
+  @keyframes container3 {
+    from {
+      background-position: 800px 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+
+  #movies-container-5{
+    animation: container3 20s linear infinite;
+  }
+  @keyframes container5 {
+    from {
+      background-position: 800px 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+  
+  
   .movies__heading {
     padding-top: 2rem; }
   .movies__container::-webkit-scrollbar {
@@ -231,7 +268,7 @@ html {
       .movies__container--movie:not(:last-child) {
         padding-right: 0.5rem; }
       .movies__container--movie-image {
-        height: 100%; }
+        height: 100%;}
       .movies__container--movie__netflix {
         min-height: 0;
         padding-top: 3rem;
@@ -247,5 +284,117 @@ html {
         @media only screen and (max-width: 768px) {
           .movies__container--movie__netflix {
             height: 34rem; } }
+
+#modaleNetflixOriginals, 
+#modaleTrendingNow, 
+#modaleTopRated, 
+#modaleActionMovies, 
+#modaleComedies,
+#modaleDocumentaries{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 60vh;
+  z-index: 100;
+  width: 100%;
+}
+
+#modale {
+  background: linear-gradient(90deg, #000 30%, transparent);
+  padding-left: 45px;
+  height: 100%;
+}
+
+.modaleTitle{
+  color: white;
+  font-size: 250%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.modaleVote{
+  color: green;
+  font-size: 150%;
+  padding-right: 10px;
+}
+
+.modaleDate, .modaleEpisode{
+  color: white;
+  font-size: 150%;
+  padding-right: 10px;
+}
+
+.modaleDescription{
+  padding-top: 8px;
+  font-size: 120%;
+  color: white;
+  width : 50%;
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+#modaleContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.modaleButton {
+  position: absolute;
+  background-color: transparent;
+  top: 0;
+  right: 0;
+  color: #fff;
+  border: none;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.modaleButtonMyList {
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.2vw;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  margin-right: 1rem;
+  padding-top: 1rem;
+  background-color: rgba(51, 51, 51, 0.5);
+  padding-bottom: 1rem;
+}
+
+.modaleButtonMyList:hover {
+  color: #000;
+  background-color: #e6e6e6;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.modaleButtonPlay {
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.2vw;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  margin-right: 1rem;
+  padding-top: 1rem;
+  background-color: #d80613;
+  padding-bottom: 1rem;
+}
+
+.modaleButtonPlay:hover {
+  color: #000;
+  background-color: #ff7d7d;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
 
 /*# sourceMappingURL=style.css.map */
