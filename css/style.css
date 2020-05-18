@@ -154,57 +154,15 @@ html {
   background-color: #111111;
   color: #fff;
   padding: 0 4rem; }
-  #movies-container-1{
-    display: flex;
-    overflow-x: scroll;
-  }
-
-  #movies-container-2,
+  #movies-container-1, 
+  #movies-container-2, 
   #movies-container-3, 
   #movies-container-4,
   #movies-container-5, 
-  #movies-container-6{ 
-    overflow-x: scroll;
+  #movies-container-6{
     display: flex;
-    background-size:40%;
-    width: 100%;
-    height: 100%;
-    animation: dropFlowP 10s linear infinite;
-    background-image: url("/img/camera.png");
+    overflow-x: scroll;
   }
-  @keyframes dropFlowP {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: 800px 0;
-    }
-  }
-
-  #movies-container-3{
-    animation: container3 20s linear infinite;
-  }
-  @keyframes container3 {
-    from {
-      background-position: 800px 0;
-    }
-    to {
-      background-position: 0 0;
-    }
-  }
-
-  #movies-container-5{
-    animation: container3 20s linear infinite;
-  }
-  @keyframes container5 {
-    from {
-      background-position: 800px 0;
-    }
-    to {
-      background-position: 0 0;
-    }
-  }
-  
   
   .movies__heading {
     padding-top: 2rem; }
@@ -395,6 +353,58 @@ html {
   background-color: #ff7d7d;
   transition: all 0.2s;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.movies__container--movie-search {
+  min-height: 0;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  padding-right: 1.3rem;
+  height: 35rem;
+  cursor: pointer;
+  transition: all 450ms;
+  transform: center left;
+}
+
+.movies__container--movie-search:hover {
+  transform: scale(1.1);
+}
+
+/********* SCROLLBARS *************************************************************/
+::-webkit-scrollbar {									/* Scrollbars */
+	width: 14px;
+	height: 14px;
+  background: #111111 0 0 repeat;
+}
+
+::-webkit-scrollbar-track-piece {						/* Fond */
+	background: transparent none;
+	border: solid 4px transparent;
+	border-right-width: 8px;
+	-webkit-box-shadow: inset 1px 1px 0 0 rgb(137,131,117), inset -1px -1px 0 0 rgb(224,220,210);
+}
+::-webkit-scrollbar-track-piece:horizontal {			/* Fond pour la barre du bas */
+	border-right-width: 4px;
+	border-bottom-width: 8px;
+}
+
+::-webkit-scrollbar-thumb {								/* Barre */
+	border: solid 0 transparent;
+	border-right-width: 4px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 9px 5px;
+	-webkit-border-bottom-right-radius: 9px 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(79,79,79), inset 0 0 0 6px rgb(102,102,102);
+}
+::-webkit-scrollbar-thumb:hover {						/* Barre */
+	-webkit-box-shadow: inset 0 0 0 1px rgb(90,90,90), inset 0 0 0 6px rgb(110,110,110);
+}
+::-webkit-scrollbar-thumb:horizontal {					/* Barre du bas */
+	border-right-width: 0;
+	border-bottom-width: 4px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px 9px;
+	-webkit-border-bottom-left-radius: 5px 9px;
 }
 
 /*# sourceMappingURL=style.css.map */
