@@ -7,8 +7,7 @@ pour remplir nos sections. De pouvoir cliquer sur une miniature pour permettre l
 D'avoir l'affiche d'un film en header avec son titre et résumé selon sa fiche.
 
 
-Langages Utilisées : JavaScript, CSS
-Technologies utilisées : NodeJs, Express
+Langages et technologies utilisées : JavaScript, Html, Sass, Fetch pour les requêtes Ajax.
 
 <a href="https://ibb.co/gFVGDY8"><img src="https://i.ibb.co/WptQcCX/Netflix.png" alt="Netflix" border="0"></a>
 
