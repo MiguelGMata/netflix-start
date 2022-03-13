@@ -11,4 +11,6 @@ Langages et technologies utilisées : JavaScript, Html, Sass, Fetch pour les req
 
 <a href="https://ibb.co/gFVGDY8"><img src="https://i.ibb.co/WptQcCX/Netflix.png" alt="Netflix" border="0"></a>
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/C1JnMtd/Shelftons-5.gif" alt="Shelftons-5" border="0"></a>
