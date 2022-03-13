@@ -1,10 +1,14 @@
 # netflix-start
 
-Creation 
+Projet réalisé dans le cadre de ma formation de << Développeur Web et Mobile >>
 
 L'objectif étant, pedant 2 semaine, de récupérer dans l'API movieDB les films et séries par le biais de fonctions asynchrones, 
 pour remplir nos sections. De pouvoir cliquer sur une miniature pour permettre l'apparition d'une modale.
 D'avoir l'affiche d'un film en header avec son titre et résumé selon sa fiche.
+
+
+Langages Utilisées : JavaScript, CSS
+Technologies utilisées : NodeJs, Express
 
 <a href="https://ibb.co/gFVGDY8"><img src="https://i.ibb.co/WptQcCX/Netflix.png" alt="Netflix" border="0"></a>
 
